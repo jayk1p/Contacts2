@@ -1,7 +1,6 @@
 import json
 
-clist = [
-    { "tipu": {
+contacts = { "tipu": {
             "phone_number": 1234567,
             "address": "123 fake st." },
 
@@ -10,7 +9,6 @@ clist = [
             "address": "123 fake st.",
             "notes": "beautiful hair" }
     }
-]
 
 
 def contact(stuff):
@@ -23,40 +21,45 @@ def contact(stuff):
 
         """)
 
-    stuff = input('> ')
+    option = input('> ')
 
-    if stuff == "1":
-        x = input('Name: ')
-        for d in clist:
-             if x in d:
-                 print(d[x])
+    if option == "1":
+        name = input('Name: ')
+        if name in contacts:
+             print(name)
 
-             else:
-                 print('This contact does not exist')
+        else:
+             print('This contact does not exist')
 
-    if stuff == "2":
-        x = input('Name: ')
-        for d in clist:
-            if x in d:
-                print('This person is already in the contact list')
+    if option == "2":
+        name = input('Name: ')
+        if name in contacts:
+            print('This person is already in the contact list')
 
-            else:
-                d[x] = input('phone_number: ')
+        else:
+            phone = int(input('phone_number: '))
+            address = input('address: ')
+            contacts.update({name:{'phone_number': phone, "address": address}})
 
-                print("Writing and closing text file")
+            print(contacts)
 
-                with open('clist.txt', 'w') as file:
-                    file.write(json.dumps(clist))
 
-    if stuff == "3":
-        x = input('Name: ')
-        if x in clist:
-            del clist[x]
+            print("Writing and closing text file")
+
+            with open('contacts.txt', 'w') as file:
+                file.write(json.dumps(contacts))
+
+
+    if option == "3":
+        name = input('Name: ')
+        if name in contacts:
+            del contacts[name]
+            print(contacts)
 
         else:
             print('This contact does not exist')
 
-    if stuff == "4":
+    if option == "4":
         exit()
 
 
